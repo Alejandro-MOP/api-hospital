@@ -1,0 +1,38 @@
+{
+	"info": {
+		"_postman_id": "06252e78-f950-444c-bfc6-150d8304a46a",
+		"name": "gestion_citas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Insertar Usuario: /registro",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nss\": \"1\",\n    \"nombre\": \"Alex\",\n    \"primer_apellido\": \"Perez\",\n    \"segundo_apellido\": \"Diaz\",\n    \"fecha_nacimiento\": \"1994-01-31\",\n    \"curp\": \"MOPL3456789FGH\",\n    \"fecha_alta\": \"2021-08-23\",\n    \"user\": \"correo@correo.com\",\n    \"password\": \"12345\",\n    \"id_genero\": \"M\",\n    \"id_tipo_sangre\": \"A positivo\",\n    \"id_ocupacion\": \"Estudiante\",\n    \"id_estadoCivil\": \"Soltero\",\n    \"id_alergia\": \"ninguna\",\n    \"calle\": \"Navarra\",\n    \"alcaldia\":\"Tecamayork\",\n    \"colonia\": \"Real del Cid\",\n    \"numero_ext\": \"203\",\n    \"numero_int\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/registro",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"registro"
+					]
+				},
+				"description": "Crear un usuario en la base de datos"
+			},
+			"response": []
+		}
+	]
+}
