@@ -67,3 +67,28 @@ exports.consultarCitaPaciente = async(req = request, res = response) => {
         console.log(error);
     }
 };
+
+exports.eliminarCita = async(req = request, res = response) => {
+    const { user, fecha } = req.body;
+
+    try {
+        console.log(user, fecha);
+        const queryConsultarCita = consultarCita + ' WHERE f.user = :user AND a.id_dcita = :fecha;'
+        const resultadoconsultar = await db.query(queryConsultarCita, {
+                replacements: {
+                    user,
+                    fecha
+                },
+                type: db.QueryTypes.SELECT,
+
+            }
+
+        )
+        console.log(resultadoconsultar);
+    } catch (error) {
+        console.log(error);
+
+    }
+
+
+}

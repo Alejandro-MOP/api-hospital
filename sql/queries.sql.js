@@ -26,10 +26,10 @@ exports.getPaciente =
     ' WHERE a.user =';
 
 exports.consultarCita =
-    ' SELECT b.fecha_cita,b.hora_cita,c.num_consultorio,d.medico,f.nss ' +
+    ' SELECT b.fecha_cita,b.hora_cita,c.num_consultorio,d.medico,f.nss,a.id_dcita ' +
     ' FROM gestion_citas.dcita As a ' +
     ' INNER JOIN gestion_citas.mcita As b ON a.id_cita = b.id_cita ' +
     ' INNER JOIN gestion_citas.consultorio As c ON a.id_consultorio = c.id_consultorio ' +
     ' INNER JOIN gestion_citas.medico As d ON a.id_medico = d.id_medico ' +
     ' INNER JOIN gestion_citas.eexpediente_clinico As e ON a.id_dcita = e.id_dcita ' +
-    ' INNER JOIN gestion_citas.paciente As f ON e.mnss_paciente = f.mnss_paciente '
+    ' INNER JOIN gestion_citas.paciente As f ON e.mnss_paciente = f.mnss_paciente ';
