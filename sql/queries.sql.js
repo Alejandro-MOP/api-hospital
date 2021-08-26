@@ -11,7 +11,9 @@ exports.crearCita =
     'INSERT INTO gestion_citas.mcita ( id_cita, fecha_cita, hora_cita )';
 
 exports.crearDetalleCita =
-    ' INSERT INTO gestion_citas.dcita(id_cita,id_consultorio,id_medico)';
+    ' INSERT INTO gestion_citas.dcita(id_dcita,id_cita,id_consultorio,id_medico)';
+exports.crearExpediente =
+    ' INSERT INTO gestion_citas.eexpediente_clinico(mnss_paciente,id_dcita)';
 
 exports.getPaciente =
     ' SELECT a.nss,a.curp,a.fecha_alta,a.fecha_nacimiento,a.nombre,a.password,a.primer_apellido,a.segundo_apellido,a.user,b.tipo_alergia,c.alcaldia,c.calle,c.colonia,c.num_ext,c.num_int,d.estado_civil,e.genero,f.ocupacion,g.tipo_sangre,h.id_dcita' +
