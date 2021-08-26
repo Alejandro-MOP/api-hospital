@@ -24,3 +24,12 @@ exports.getPaciente =
     ' INNER JOIN gestion_citas.tipo_sangre As g ON a.id_tipo_sangre = g.id_tiposangre' +
     ' INNER JOIN gestion_citas.eexpediente_clinico As h ON a.mnss_paciente = h.mnss_paciente' +
     ' WHERE a.user =';
+
+exports.consultarCita =
+    ' SELECT b.fecha_cita,b.hora_cita,c.num_consultorio,d.medico,f.nss ' +
+    ' FROM gestion_citas.dcita As a ' +
+    ' INNER JOIN gestion_citas.mcita As b ON a.id_cita = b.id_cita ' +
+    ' INNER JOIN gestion_citas.consultorio As c ON a.id_consultorio = c.id_consultorio ' +
+    ' INNER JOIN gestion_citas.medico As d ON a.id_medico = d.id_medico ' +
+    ' INNER JOIN gestion_citas.eexpediente_clinico As e ON a.id_dcita = e.id_dcita ' +
+    ' INNER JOIN gestion_citas.paciente As f ON e.mnss_paciente = f.mnss_paciente '

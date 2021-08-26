@@ -7,7 +7,8 @@ const {
     consultarPerfil
 } = require('../controllers/user.controller');
 
-const { crearCita } = require('../controllers/cita.controller')
+const { crearCita, consultarCitaPaciente } = require('../controllers/cita.controller');
+
 
 module.exports = function() {
     //Servicio para registro de nuevo usuario
@@ -20,7 +21,7 @@ module.exports = function() {
     router.post('/crear-cita', crearCita);
 
     //Servicio para consultar cita
-    router.get('/consultar-cita');
+    router.get('/consultar-cita', consultarCitaPaciente);
 
     //Servicio para eliminar cita
     router.delete('/eliminar-cita');
@@ -30,6 +31,8 @@ module.exports = function() {
 
     //Servicio para obtener datos del paciente
     router.get('/mi-perfil', consultarPerfil);
+
+
 
     return router;
 };
