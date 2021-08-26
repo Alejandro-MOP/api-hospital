@@ -121,6 +121,7 @@ exports.iniciarSesion = async(req = request, res = response) => {
         //Si el usuario existe retornamos al cliente un true, de lo contrario un false
         //prettier-ignore
         const validacionPassword = password === resultado[0].password ? true : false;
+        //TODO:No regresar boleano regresar datos del usuario al front
         res.status(200).send(validacionPassword);
     } catch (error) {
         console.log(error);

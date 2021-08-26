@@ -9,12 +9,14 @@ const { crearCita, crearDetalleCita, consultarCita } = require('../sql/queries.s
 
 //crear cita
 exports.crearCita = async(req = request, res = response) => {
+    //TODO:Obtener mnss del body 
     const { fechacita, horacita, consultorio, medico } = req.body;
 
     let id_cita;
 
     try {
         const queryCita = crearCita + ' VALUES(default, :fechacita, :horacita)';
+
         const resultadoCita = await db.query(queryCita, {
             replacements: {
                 fechacita,
@@ -25,15 +27,18 @@ exports.crearCita = async(req = request, res = response) => {
 
 
         id_cita = resultadoCita[0]
-        const queryDetalleCita = crearDetalleCita + ' VALUES(:id_cita, :consultorio, :medico)';
+        const queryDetalleCita = crearDetalleCita + ' VALUES(:id_dcita, :id_cita, :consultorio, :medico)';
         await db.query(queryDetalleCita, {
-            replacements: {
-                id_cita,
-                consultorio,
-                medico,
-            },
-            type: db.QueryTypes.INSERT,
-        })
+                replacements: {
+                    id_cita,
+                    consultorio,
+                    medico,
+                },
+                type: db.QueryTypes.INSERT,
+            })
+            //TODO:Mandar mnss en el insert
+
+        const queryCrearExpediente = crearExpediente + ' VALUES(:mnss_paciente, :id_dcita)';
 
         res.status(200).json({ msg: "cita creada exitosamente" })
 
@@ -67,3 +72,28 @@ exports.consultarCitaPaciente = async(req = request, res = response) => {
         console.log(error);
     }
 };
+
+exports.eliminarCita = async(req = request, res = response) => {
+    const { user, fecha } = req.body;
+
+    try {
+        console.log(user, fecha);
+        const queryConsultarCita = consultarCita + ' WHERE f.user = :user AND a.id_dcita = :fecha;'
+        const resultadoconsultar = await db.query(queryConsultarCita, {
+                replacements: {
+                    user,
+                    fecha
+                },
+                type: db.QueryTypes.SELECT,
+
+            }
+
+        )
+        console.log(resultadoconsultar);
+    } catch (error) {
+        console.log(error);
+
+    }
+
+
+}

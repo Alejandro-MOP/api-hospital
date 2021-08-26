@@ -11,7 +11,9 @@ exports.crearCita =
     'INSERT INTO gestion_citas.mcita ( id_cita, fecha_cita, hora_cita )';
 
 exports.crearDetalleCita =
-    ' INSERT INTO gestion_citas.dcita(id_cita,id_consultorio,id_medico)';
+    ' INSERT INTO gestion_citas.dcita(id_dcita,id_cita,id_consultorio,id_medico)';
+exports.crearExpediente =
+    ' INSERT INTO gestion_citas.eexpediente_clinico(mnss_paciente,id_dcita)';
 
 exports.getPaciente =
     ' SELECT a.nss,a.curp,a.fecha_alta,a.fecha_nacimiento,a.nombre,a.password,a.primer_apellido,a.segundo_apellido,a.user,b.tipo_alergia,c.alcaldia,c.calle,c.colonia,c.num_ext,c.num_int,d.estado_civil,e.genero,f.ocupacion,g.tipo_sangre,h.id_dcita' +
@@ -26,10 +28,10 @@ exports.getPaciente =
     ' WHERE a.user =';
 
 exports.consultarCita =
-    ' SELECT b.fecha_cita,b.hora_cita,c.num_consultorio,d.medico,f.nss ' +
+    ' SELECT b.fecha_cita,b.hora_cita,c.num_consultorio,d.medico,f.nss,a.id_dcita ' +
     ' FROM gestion_citas.dcita As a ' +
     ' INNER JOIN gestion_citas.mcita As b ON a.id_cita = b.id_cita ' +
     ' INNER JOIN gestion_citas.consultorio As c ON a.id_consultorio = c.id_consultorio ' +
     ' INNER JOIN gestion_citas.medico As d ON a.id_medico = d.id_medico ' +
     ' INNER JOIN gestion_citas.eexpediente_clinico As e ON a.id_dcita = e.id_dcita ' +
-    ' INNER JOIN gestion_citas.paciente As f ON e.mnss_paciente = f.mnss_paciente '
+    ' INNER JOIN gestion_citas.paciente As f ON e.mnss_paciente = f.mnss_paciente ';
