@@ -7,7 +7,7 @@ const {
     consultarPerfil
 } = require('../controllers/user.controller');
 
-const { crearCita, consultarCitaPaciente, eliminarCita } = require('../controllers/cita.controller');
+const { crearCita, consultarCitaPaciente, eliminarCita, actualizarCita } = require('../controllers/cita.controller');
 
 
 module.exports = function() {
@@ -27,7 +27,7 @@ module.exports = function() {
     router.delete('/eliminar-cita', eliminarCita);
 
     //Servicio para actualizar cita
-    router.put('/actualizar-cita');
+    router.put('/actualizar-cita', actualizarCita);
 
     //Servicio para obtener datos del paciente
     router.get('/mi-perfil', consultarPerfil);
