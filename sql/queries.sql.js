@@ -5,7 +5,7 @@ exports.insertUsuario =
     'INSERT INTO gestion_citas.paciente (nss,curp,fecha_alta,fecha_nacimiento,nombre,primer_apellido,segundo_apellido,user,password,id_alergia,id_direccion, id_estado_civil, id_genero, id_ocupacion,id_tipo_sangre)';
 
 exports.getPassword =
-    'SELECT password from gestion_citas.paciente WHERE user =';
+    'SELECT password, mnss_paciente from gestion_citas.paciente WHERE user =';
 
 exports.crearCita =
     'INSERT INTO gestion_citas.mcita ( id_cita, fecha_cita, hora_cita )';
@@ -28,10 +28,15 @@ exports.getPaciente =
     ' WHERE a.user =';
 
 exports.consultarCita =
-    ' SELECT b.fecha_cita,b.hora_cita,c.num_consultorio,d.medico,f.nss,a.id_dcita ' +
+    ' SELECT a.id_dcita, b.fecha_cita, b.hora_cita, c.num_consultorio, d.medico ' +
     ' FROM gestion_citas.dcita As a ' +
     ' INNER JOIN gestion_citas.mcita As b ON a.id_cita = b.id_cita ' +
     ' INNER JOIN gestion_citas.consultorio As c ON a.id_consultorio = c.id_consultorio ' +
     ' INNER JOIN gestion_citas.medico As d ON a.id_medico = d.id_medico ' +
     ' INNER JOIN gestion_citas.eexpediente_clinico As e ON a.id_dcita = e.id_dcita ' +
     ' INNER JOIN gestion_citas.paciente As f ON e.mnss_paciente = f.mnss_paciente ';
+
+exports.eliminarCita =
+    ' DELETE FROM gestion_citas.dcita WHERE id_dcita= ';
+
+

@@ -4,13 +4,13 @@ const db = require('../config/db.config');
 
 const { request, response } = require('express');
 
-const { crearCita, crearDetalleCita, consultarCita } = require('../sql/queries.sql');
+const { crearCita, crearDetalleCita, consultarCita, crearExpediente, eliminarCita } = require('../sql/queries.sql');
 
 
 //crear cita
-exports.crearCita = async(req = request, res = response) => {
-    //TODO:Obtener mnss del body 
-    const { fechacita, horacita, consultorio, medico } = req.body;
+exports.crearCita = async (req = request, res = response) => {
+
+    const { fechacita, horacita, consultorio, medico, mnss } = req.body;
 
     let id_cita;
 
@@ -27,19 +27,25 @@ exports.crearCita = async(req = request, res = response) => {
 
 
         id_cita = resultadoCita[0]
-        const queryDetalleCita = crearDetalleCita + ' VALUES(:id_dcita, :id_cita, :consultorio, :medico)';
-        await db.query(queryDetalleCita, {
-                replacements: {
-                    id_cita,
-                    consultorio,
-                    medico,
-                },
-                type: db.QueryTypes.INSERT,
-            })
-            //TODO:Mandar mnss en el insert
+        const queryDetalleCita = crearDetalleCita + ' VALUES(default, :id_cita, :consultorio, :medico)';
+        const resultadoDetalleCita = await db.query(queryDetalleCita, {
+            replacements: {
+                id_cita,
+                consultorio,
+                medico,
+            },
+            type: db.QueryTypes.INSERT,
+        })
+        let id_dcita = resultadoDetalleCita[0]
 
-        const queryCrearExpediente = crearExpediente + ' VALUES(:mnss_paciente, :id_dcita)';
+        const queryCrearExpediente = crearExpediente + ' VALUES(:mnss, :id_dcita)';
+        await db.query(queryCrearExpediente, {
+            replacements: {
+                mnss,
+                id_dcita
 
+            }
+        })
         res.status(200).json({ msg: "cita creada exitosamente" })
 
     } catch (error) {
@@ -51,7 +57,7 @@ exports.crearCita = async(req = request, res = response) => {
 
 
 //consultar cita
-exports.consultarCitaPaciente = async(req = request, res = response) => {
+exports.consultarCitaPaciente = async (req = request, res = response) => {
     const { user } = req.body;
 
     try {
@@ -73,23 +79,22 @@ exports.consultarCitaPaciente = async(req = request, res = response) => {
     }
 };
 
-exports.eliminarCita = async(req = request, res = response) => {
-    const { user, fecha } = req.body;
+exports.eliminarCita = async (req = request, res = response) => {
+    const { user, id_cita } = req.body;
 
     try {
-        console.log(user, fecha);
-        const queryConsultarCita = consultarCita + ' WHERE f.user = :user AND a.id_dcita = :fecha;'
-        const resultadoconsultar = await db.query(queryConsultarCita, {
-                replacements: {
-                    user,
-                    fecha
-                },
-                type: db.QueryTypes.SELECT,
+        const queryeliminarCita = eliminarCita + ' WHERE f.user = :user AND a.id_dcita = :id_cita;'
+        const resultadoconsultar = await db.query(queryeliminarCita, {
+            replacements: {
+                user,
+                id_cita
+            },
+            type: db.QueryTypes.DELETE,
 
-            }
+        }
 
         )
-        console.log(resultadoconsultar);
+        res.status(200).json({ msg: "Se elimino la cita correctamente" })
     } catch (error) {
         console.log(error);
 

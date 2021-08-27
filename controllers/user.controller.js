@@ -16,7 +16,7 @@ const {
     get_id_tipo_sangre,
 } = require('../helpers/getId.helper');
 
-exports.registrarUsuario = async(req = request, res = response) => {
+exports.registrarUsuario = async (req = request, res = response) => {
     //Desestructuramos las variables que vienen en el Body
     const {
         nss,
@@ -104,7 +104,7 @@ exports.registrarUsuario = async(req = request, res = response) => {
     }
 };
 
-exports.iniciarSesion = async(req = request, res = response) => {
+exports.iniciarSesion = async (req = request, res = response) => {
     //Desestructuramos las variables que vienen en el Body
     const { user, password } = req.body;
 
@@ -119,16 +119,18 @@ exports.iniciarSesion = async(req = request, res = response) => {
         });
 
         //Si el usuario existe retornamos al cliente un true, de lo contrario un false
-        //prettier-ignore
-        const validacionPassword = password === resultado[0].password ? true : false;
-        //TODO:No regresar boleano regresar datos del usuario al front
-        res.status(200).send(validacionPassword);
+
+        const validacionPassword = password === resultado[0].password
+            ? { validacion: true, mnss: resultado[0].mnss_paciente }
+            : false;
+
+        res.status(200).json(validacionPassword);
     } catch (error) {
         console.log(error);
     }
 };
 
-exports.consultarPerfil = async(req = request, res = response) => {
+exports.consultarPerfil = async (req = request, res = response) => {
     const { user } = req.body;
 
     try {
@@ -141,7 +143,7 @@ exports.consultarPerfil = async(req = request, res = response) => {
             type: db.QueryTypes.SELECT,
         });
         console.log(resultado)
-            //prettier-ignore
+        //prettier-ignore
     } catch (error) {
         console.log(error);
 
