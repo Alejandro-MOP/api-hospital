@@ -7,6 +7,7 @@ const { request, response } = require('express');
 const { crearCita, crearDetalleCita, consultarCita, crearExpediente, eliminarCita } = require('../sql/queries.sql');
 
 
+
 //crear cita
 exports.crearCita = async (req = request, res = response) => {
 
@@ -71,34 +72,50 @@ exports.consultarCitaPaciente = async (req = request, res = response) => {
 
 
         res.status(200).json(resultadoConsulta[0]);
-
-
-
     } catch (error) {
         console.log(error);
     }
 };
+
 
 exports.eliminarCita = async (req = request, res = response) => {
     const { user, id_cita } = req.body;
 
     try {
         const queryeliminarCita = eliminarCita + ' WHERE f.user = :user AND a.id_dcita = :id_cita;'
-        const resultadoconsultar = await db.query(queryeliminarCita, {
+        await db.query(queryeliminarCita, {
             replacements: {
                 user,
                 id_cita
             },
             type: db.QueryTypes.DELETE,
-
-        }
-
-        )
+        })
         res.status(200).json({ msg: "Se elimino la cita correctamente" })
     } catch (error) {
         console.log(error);
-
     }
-
-
 }
+
+
+exports.actualizarCita = async (req = request, res = response) => {
+    const { id_cita, fechacita, horacita } = req.body;
+
+    try {
+        const query = ' update gestion_citas.mcita '+
+        ' set hora_cita = :horacita, '+
+        ' fecha_cita = :fechacita '+
+        ' where id_cita = :id_cita ';
+
+        await db.query(query, {
+            replacements: {
+                id_cita,
+                fechacita,
+                horacita
+            },
+            type: db.QueryTypes.UPDATE,
+        })
+        res.status(200).json({message: "Actualizacion correcta"})
+    } catch (error) {
+        console.log(error);
+    }
+} 

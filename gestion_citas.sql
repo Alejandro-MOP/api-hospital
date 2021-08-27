@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 8.0.14, for macos10.14 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
 --
 -- Host: localhost    Database: gestion_citas
 -- ------------------------------------------------------
--- Server version	8.0.14
+-- Server version	5.7.33-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
- SET NAMES utf8 ;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `alergia`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `alergia` (
   `id_alergia` bigint(20) NOT NULL AUTO_INCREMENT,
   `tipo_alergia` varchar(255) DEFAULT NULL,
@@ -45,7 +45,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `consultorio`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `consultorio` (
   `id_consultorio` bigint(20) NOT NULL AUTO_INCREMENT,
   `num_consultorio` varchar(255) DEFAULT NULL,
@@ -72,7 +72,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `dcita`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `dcita` (
   `id_dcita` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_cita` bigint(20) DEFAULT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE `dcita` (
   CONSTRAINT `FK25aj6s37kc4oef84vq45fideu` FOREIGN KEY (`id_cita`) REFERENCES `mcita` (`id_cita`),
   CONSTRAINT `FK7lhc3t5uvih8w35rb321dcjrt` FOREIGN KEY (`id_medico`) REFERENCES `medico` (`id_medico`),
   CONSTRAINT `FKghv36rwi3072hmwfkje36ewpq` FOREIGN KEY (`id_consultorio`) REFERENCES `consultorio` (`id_consultorio`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,6 +94,7 @@ CREATE TABLE `dcita` (
 
 LOCK TABLES `dcita` WRITE;
 /*!40000 ALTER TABLE `dcita` DISABLE KEYS */;
+INSERT INTO `dcita` VALUES (9,1,1,1),(10,4,1,1),(11,5,1,1),(12,6,1,1);
 /*!40000 ALTER TABLE `dcita` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,7 +104,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `direccion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `direccion` (
   `id_direccion` bigint(20) NOT NULL AUTO_INCREMENT,
   `alcaldia` varchar(255) DEFAULT NULL,
@@ -131,20 +132,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `eexpediente_clinico`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `eexpediente_clinico` (
-  `mnss_paciente` bigint(20) NOT NULL AUTO_INCREMENT,
+  `mnss_paciente` bigint(20) DEFAULT NULL,
   `id_dcita` bigint(20) DEFAULT NULL,
-  `id_expedienteclinico` bigint(20) DEFAULT NULL,
-  `id_fichadiagnostico` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`mnss_paciente`),
-  KEY `FKitmwupcfqx78531o5c4s7wvm9` (`id_dcita`),
-  KEY `FK2yb537qjflkivx3tujs7xgjud` (`id_expedienteclinico`),
-  KEY `FKm2myq738xgymjgaikn7196xbm` (`id_fichadiagnostico`),
-  CONSTRAINT `FK2yb537qjflkivx3tujs7xgjud` FOREIGN KEY (`id_expedienteclinico`) REFERENCES `expediente_clinico` (`id_expedienteclinico`),
-  CONSTRAINT `FKitmwupcfqx78531o5c4s7wvm9` FOREIGN KEY (`id_dcita`) REFERENCES `dcita` (`id_dcita`),
-  CONSTRAINT `FKm2myq738xgymjgaikn7196xbm` FOREIGN KEY (`id_fichadiagnostico`) REFERENCES `fichadiagnostico` (`id_fichadiagnostico`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`),
+  KEY `FKitmwupcfqx78531o5c4s7wvm9` (`id_dcita`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -153,6 +148,7 @@ CREATE TABLE `eexpediente_clinico` (
 
 LOCK TABLES `eexpediente_clinico` WRITE;
 /*!40000 ALTER TABLE `eexpediente_clinico` DISABLE KEYS */;
+INSERT INTO `eexpediente_clinico` VALUES (1,8,1),(1,12,2);
 /*!40000 ALTER TABLE `eexpediente_clinico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -162,7 +158,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `especialidad`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `especialidad` (
   `id_especialidad` bigint(20) NOT NULL AUTO_INCREMENT,
   `tipo_de_especialidad` varchar(255) DEFAULT NULL,
@@ -186,7 +182,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `estado_civil`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `estado_civil` (
   `id_estado_civil` bigint(20) NOT NULL,
   `estado_civil` varchar(10) NOT NULL,
@@ -210,7 +206,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `expediente_clinico`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `expediente_clinico` (
   `id_expedienteclinico` bigint(20) NOT NULL AUTO_INCREMENT,
   `pregunta_1` varchar(255) DEFAULT NULL,
@@ -235,7 +231,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `fichadiagnostico`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `fichadiagnostico` (
   `id_fichadiagnostico` bigint(20) NOT NULL AUTO_INCREMENT,
   `nota` varchar(255) DEFAULT NULL,
@@ -261,7 +257,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `genero`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `genero` (
   `id_genero` bigint(20) NOT NULL AUTO_INCREMENT,
   `genero` varchar(1) NOT NULL,
@@ -285,12 +281,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `horario_dia`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `horario_dia` (
   `id_horariodia` bigint(20) NOT NULL AUTO_INCREMENT,
   `dia` date DEFAULT NULL,
   PRIMARY KEY (`id_horariodia`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -299,6 +295,7 @@ CREATE TABLE `horario_dia` (
 
 LOCK TABLES `horario_dia` WRITE;
 /*!40000 ALTER TABLE `horario_dia` DISABLE KEYS */;
+INSERT INTO `horario_dia` VALUES (1,'0000-00-00');
 /*!40000 ALTER TABLE `horario_dia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -308,7 +305,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `horario_medico`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `horario_medico` (
   `id_horariomedico` bigint(20) NOT NULL AUTO_INCREMENT,
   `hora_entrada` varchar(255) DEFAULT NULL,
@@ -317,7 +314,7 @@ CREATE TABLE `horario_medico` (
   PRIMARY KEY (`id_horariomedico`),
   KEY `FK2bg92rg8ibdoc6ock585ilmh7` (`id_horariodia`),
   CONSTRAINT `FK2bg92rg8ibdoc6ock585ilmh7` FOREIGN KEY (`id_horariodia`) REFERENCES `horario_dia` (`id_horariodia`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -326,6 +323,7 @@ CREATE TABLE `horario_medico` (
 
 LOCK TABLES `horario_medico` WRITE;
 /*!40000 ALTER TABLE `horario_medico` DISABLE KEYS */;
+INSERT INTO `horario_medico` VALUES (1,'09:00','19:00',1);
 /*!40000 ALTER TABLE `horario_medico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -335,13 +333,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `mcita`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mcita` (
   `id_cita` bigint(20) NOT NULL AUTO_INCREMENT,
   `fecha_cita` date DEFAULT NULL,
   `hora_cita` time DEFAULT NULL,
   PRIMARY KEY (`id_cita`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -350,6 +348,7 @@ CREATE TABLE `mcita` (
 
 LOCK TABLES `mcita` WRITE;
 /*!40000 ALTER TABLE `mcita` DISABLE KEYS */;
+INSERT INTO `mcita` VALUES (1,'2021-08-26','09:00:00'),(2,'2021-08-26','09:10:00'),(3,'2021-08-26','09:10:00'),(4,'2021-08-26','09:10:00'),(5,'2021-08-26','09:10:00'),(6,'2021-08-26','09:10:00');
 /*!40000 ALTER TABLE `mcita` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -359,7 +358,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `medico`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `medico` (
   `id_medico` bigint(20) NOT NULL AUTO_INCREMENT,
   `medico` varchar(255) DEFAULT NULL,
@@ -373,7 +372,7 @@ CREATE TABLE `medico` (
   CONSTRAINT `FK3ac1gl20w2yv2n36gsuoy83ut` FOREIGN KEY (`id_horariomedico`) REFERENCES `horario_medico` (`id_horariomedico`),
   CONSTRAINT `FK3mpnlhcftn6lhof6fbl8hjrk5` FOREIGN KEY (`id_personal`) REFERENCES `personal` (`id_personal`),
   CONSTRAINT `FKq27llf67jwglboxfkggn3wmhf` FOREIGN KEY (`id_especialidad`) REFERENCES `especialidad` (`id_especialidad`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -382,6 +381,7 @@ CREATE TABLE `medico` (
 
 LOCK TABLES `medico` WRITE;
 /*!40000 ALTER TABLE `medico` DISABLE KEYS */;
+INSERT INTO `medico` VALUES (1,'Delio',1,1,1);
 /*!40000 ALTER TABLE `medico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -391,7 +391,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `ocupacion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ocupacion` (
   `id_ocupacion` bigint(20) NOT NULL AUTO_INCREMENT,
   `ocupacion` varchar(255) DEFAULT NULL,
@@ -415,7 +415,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `paciente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `paciente` (
   `nss` bigint(20) NOT NULL,
   `curp` varchar(255) DEFAULT NULL,
@@ -440,10 +440,8 @@ CREATE TABLE `paciente` (
   KEY `FK91kob0d6obrb5d01bujvu5ibt` (`id_genero`),
   KEY `FKr7fleulkgws67kq4sgc5f5q6u` (`id_ocupacion`),
   KEY `FKmjoykxhriig9ctk75se5oxmfk` (`id_tipo_sangre`),
-  KEY `FKgo04s9yp1x4qaw7um29fhg3d0` (`mnss_paciente`),
   CONSTRAINT `FK91kob0d6obrb5d01bujvu5ibt` FOREIGN KEY (`id_genero`) REFERENCES `genero` (`id_genero`),
   CONSTRAINT `FKc2v6w0amy2rjaj0xvucfra3v4` FOREIGN KEY (`id_alergia`) REFERENCES `alergia` (`id_alergia`),
-  CONSTRAINT `FKgo04s9yp1x4qaw7um29fhg3d0` FOREIGN KEY (`mnss_paciente`) REFERENCES `eexpediente_clinico` (`mnss_paciente`),
   CONSTRAINT `FKjcxl8dimao5juma9a3wm1s7rh` FOREIGN KEY (`id_direccion`) REFERENCES `direccion` (`id_direccion`),
   CONSTRAINT `FKlvjl6brp07jfkj0leimvhal7j` FOREIGN KEY (`id_estado_civil`) REFERENCES `estado_civil` (`id_estado_civil`),
   CONSTRAINT `FKmjoykxhriig9ctk75se5oxmfk` FOREIGN KEY (`id_tipo_sangre`) REFERENCES `tipo_sangre` (`id_tiposangre`),
@@ -457,7 +455,7 @@ CREATE TABLE `paciente` (
 
 LOCK TABLES `paciente` WRITE;
 /*!40000 ALTER TABLE `paciente` DISABLE KEYS */;
-INSERT INTO `paciente` VALUES (123457890123,'MOPL3456789FGH','2021-08-23','1994-01-31','Alex','12345','Perez','Diaz','correo@correo.com',6,8,1,2,2,4,NULL);
+INSERT INTO `paciente` VALUES (123457890123,'MOPL3456789FGH','2021-08-23','1994-01-31','Alex','12345','Perez','Diaz','correo@correo.com',6,8,1,2,2,4,1);
 /*!40000 ALTER TABLE `paciente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -467,7 +465,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `personal`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `personal` (
   `id_personal` bigint(20) NOT NULL,
   `nombre_personal` varchar(255) DEFAULT NULL,
@@ -488,6 +486,7 @@ CREATE TABLE `personal` (
 
 LOCK TABLES `personal` WRITE;
 /*!40000 ALTER TABLE `personal` DISABLE KEYS */;
+INSERT INTO `personal` VALUES (1,'Delio','12345','Gonzalez','Martinez','correo@correo.com',2);
 /*!40000 ALTER TABLE `personal` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -497,7 +496,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `rol`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `rol` (
   `id_rol` bigint(20) NOT NULL,
   `tipo_personal` varchar(255) DEFAULT NULL,
@@ -511,6 +510,7 @@ CREATE TABLE `rol` (
 
 LOCK TABLES `rol` WRITE;
 /*!40000 ALTER TABLE `rol` DISABLE KEYS */;
+INSERT INTO `rol` VALUES (1,'Administrativo'),(2,'Medico'),(3,'Intendencia');
 /*!40000 ALTER TABLE `rol` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -520,7 +520,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `solicitud_especialidad`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `solicitud_especialidad` (
   `id_solicitudespecialidad` bigint(20) NOT NULL,
   `fecha_emision` varchar(255) DEFAULT NULL,
@@ -548,7 +548,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tipo_consultorio`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tipo_consultorio` (
   `id_tipoconsultorio` bigint(20) NOT NULL AUTO_INCREMENT,
   `tipo_consultorio` varchar(45) NOT NULL,
@@ -572,7 +572,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tipo_sangre`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tipo_sangre` (
   `id_tiposangre` bigint(20) NOT NULL AUTO_INCREMENT,
   `tipo_sangre` varchar(255) DEFAULT NULL,
@@ -596,7 +596,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tratamiento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tratamiento` (
   `id_tratamiento` bigint(20) NOT NULL AUTO_INCREMENT,
   `tratamiento` varchar(255) DEFAULT NULL,
@@ -622,4 +622,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-23 22:53:46
+-- Dump completed on 2021-08-26 21:48:15
