@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "06252e78-f950-444c-bfc6-150d8304a46a",
+		"_postman_id": "9cee9a25-af82-4b08-939d-4786ed3cadd3",
 		"name": "gestion_citas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -31,6 +31,183 @@
 					]
 				},
 				"description": "Crear un usuario en la base de datos"
+			},
+			"response": []
+		},
+		{
+			"name": "iniciar-sesion",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":\"correo.corre.com\",\r\n    \"password\":\"cola456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/iniciar-sesion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"iniciar-sesion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear-cita",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"fechacita\":\"00:00\", \r\n   \"horacita\":\"00:00\", \r\n   \"consultorio\":\"1\", \r\n   \"medico\":\"delio\", \r\n   \"mnss\":\"1435\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/crear-cita",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"crear-cita"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consultar-cita",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":\"correo@correo.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/consultar-cita",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"consultar-cita"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar-cita",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":\"correo@correo.com\",\r\n    \"id_cita\":\"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/eliminar-cita",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"eliminar-cita"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "actualizar-cita",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id_cita\":\"1\", \r\n    \"fechacita\":\"00:00\", \r\n    \"horacita\":\"00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/actualizar-cita",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"actualizar-cita"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consultar-perfil",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":\"correo.correo.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/mi-perfil",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"mi-perfil"
+					]
+				}
 			},
 			"response": []
 		}
