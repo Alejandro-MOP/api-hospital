@@ -7,21 +7,21 @@ exports.get_id_genero = (genero = '') => {
 exports.get_id_tipo_sangre = (tipoSangre = '') => {
 	let id = 0;
 	switch (tipoSangre.toLowerCase().trim()) {
-		case 'o negativo':
+		case 'o-':
 			return (id = 1);
-		case 'o positivo':
+		case 'o+':
 			return (id = 2);
-		case 'a negativo':
+		case 'a-':
 			return (id = 3);
-		case 'a positivo':
+		case 'a+':
 			return (id = 4);
-		case 'b negativo':
+		case 'b-':
 			return (id = 5);
-		case 'b positivo':
+		case 'b+':
 			return (id = 6);
-		case 'ab positivo':
+		case 'ab+':
 			return (id = 7);
-		case 'ab negativo':
+		case 'ab-':
 			return (id = 8);
 		default:
 			break;
@@ -65,7 +65,7 @@ exports.get_id_estado_civil = (estadoCivil = '') => {
 
 exports.get_id_alergia = alergia => {
 	let id = 0;
-	switch (alergia) {
+	switch (alergia.toLowerCase().trim()) {
 		case 'anticonvulsivos':
 			return (id = 1);
 		case 'insulina':
