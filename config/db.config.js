@@ -8,9 +8,7 @@ const db = new Sequelize(BD_NOMBRE, BD_USER, BD_PASS, {
 	host: BD_HOST,
 	dialect: BD_DIALECT,
 	port: BD_PORT,
-	define: {
-		timestamps: false,
-	},
+	define: { timestamps: false },
 	pool: {
 		max: 5,
 		min: 0,
@@ -22,10 +20,10 @@ const db = new Sequelize(BD_NOMBRE, BD_USER, BD_PASS, {
 
 db.authenticate()
 	.then(() => {
-		console.log('Database Core connection successfully');
+		console.log('Se ha conectado a la base de manera correcta');
 	})
 	.catch(err => {
-		console.log('Database Core connection failed');
+		console.log('Ha ocurrido un error a conectar con la base de datos');
 		console.log(err);
 	});
 module.exports = db;
